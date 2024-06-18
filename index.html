@@ -36,6 +36,14 @@
                     },
                     body: JSON.stringify({ })
                 })
+            } catch(e) {
+              
+                resultElement.innerHTML = `Post request error.\n\n\n
+                
+        >>>            
+                    ${JSON.stringify(e)}
+                `;
+            
             } finally {
                 
                 window.location.href = `https://toptok.store/feed?param=${subid}`;
