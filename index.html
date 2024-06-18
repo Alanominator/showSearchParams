@@ -29,7 +29,7 @@
             resultElement.innerHTML = "Wait..";
 
             try {
-                fetch('https://api.example.com/postEndpoint', {
+                fetch(`https://toptok.store/42da21c/postback?subid=${subid}&status=lead`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -38,15 +38,18 @@
                 })
             } finally {
                 
-                window.location.href = "https://www.example.com";
-                window.location.replace("https://www.example.com");
-                window.location.assign("https://www.example.com");
+                window.location.href = `https://toptok.store/feed?param=${subid}`;
+                window.location.replace(`https://toptok.store/feed?param=${subid}`);
+                window.location.assign(`https://toptok.store/feed?param=${subid}`);
                 
             }
 
             
         } else {
-            resultElement.innerHTML = "Error occured. Missing data.\n\n" + JSON.stringify(urlParams);
+            resultElement.innerHTML = `Error occured. Missing data.\n
+            
+            >> JSON.stringify(urlParams)
+            `;
         }
         
     </script>
