@@ -13,31 +13,42 @@
 
     </div>
 
-    <script>
-        // Get the query string from the URL
+    <script type="text/javascript">
         const queryString = window.location.search;
 
         // Parse the query string into a URLSearchParams object
         const urlParams = new URLSearchParams(queryString);
 
-        // Initialize an empty object to store the search parameters
-        let resultStringHtml = ''
+        const subid = urlParams.get("thWebAppStartParam")
 
-        // Loop through all parameters and populate the searchParams object
-        urlParams.forEach((value, key) => {
-            resultStringHtml += `
-            <div>
-                <b>${value}</b> -> <span>${key}</span>
-            </div>
-            `
-        });
+        const resultElement = document.getElementById("result")
+        
+        if (subid) {
 
-        // render result string
-        if (resultStringHtml) {
-            document.getElementById("result").innerHTML = resultStringHtml
+            
+            resultElement.innerHTML = "Wait..";
+
+            try {
+                fetch('https://api.example.com/postEndpoint', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ })
+                })
+            } finally {
+                
+                window.location.href = "https://www.example.com";
+                window.location.replace("https://www.example.com");
+                window.location.assign("https://www.example.com");
+                
+            }
+
+            
         } else {
-            document.getElementById("result").innerHTML = "<h1>There's no search params</h1>"
+            resultElement.innerHTML = "Error occured. Missing data.";
         }
+        
     </script>
 </body>
 
