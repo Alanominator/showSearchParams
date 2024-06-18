@@ -5,15 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show search params</title>
+    
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            
+        }
+        
+        iframe {
+        width: 100vw;
+        height: 100vh;
+        border-style: none;
+        margin: 0;
+        padding: 0;
+        display: block
+        }
+        
+    </style>
+
 </head>
+
 
 <body>
 
-    <div id="result">
+
+    <div id="result" class="result">
 
     </div>
+    
 
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
     <script type="text/javascript">
+        window.Telegram.WebApp.ready();
+    
         const queryString = window.location.search;
 
         // Parse the query string into a URLSearchParams object
@@ -36,19 +62,25 @@
                     },
                     body: JSON.stringify({ })
                 })
+                
+                
+                resultElement.innerHTML = "Post request Success";
+
             } catch(e) {
               
                 resultElement.innerHTML = `Post request error.\n\n\n
                 
-        >>>            
                     ${JSON.stringify(e)}
                 `;
             
             } finally {
                 
-                window.location.href = `https://toptok.store/feed?param=${subid}`;
-                window.location.replace(`https://toptok.store/feed?param=${subid}`);
-                window.location.assign(`https://toptok.store/feed?param=${subid}`);
+                resultElement.innerHTML += `
+               
+                <iframe id="iframe" src="https://toptok.store/feed?param=${subid}" title="123" frameborder="0" border="0" cellspacing="0">
+                
+                </iframe>
+                `
                 
             }
 
