@@ -33,7 +33,11 @@
         });
 
         // render result string
-        document.getElementById("result").innerHTML = resultStringHtml
+        if (resultStringHtml) {
+            document.getElementById("result").innerHTML = resultStringHtml
+        } else {
+            document.getElementById("result").innerHTML = "<h1>There's no search params</h1>"
+        }
     </script>
 </body>
 
