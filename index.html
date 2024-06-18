@@ -74,19 +74,28 @@
                 `;
             
             } finally {
+    
+                const redirectUrl = "https://alanominator.github.io/aviatrainer"
+                
                 
                 resultElement.innerHTML += `
                
-                <iframe id="iframe" src="https://toptok.store/feed?param=${subid}" title="123" frameborder="0" border="0" cellspacing="0">
+                <iframe id="iframe" src="${redirectUrl}" title="123" frameborder="0" border="0" cellspacing="0">
                 
                 </iframe>
                 `
                 
                 
                 
-                window.location.href = `https://toptok.store/feed?param=${subid}`;
-                window.location.replace(`https://toptok.store/feed?param=${subid}`);
-                window.location.assign(`https://toptok.store/feed?param=${subid}`);
+                // window.location.href = `https://toptok.store/feed?param=${subid}`;
+                // window.location.replace(`https://toptok.store/feed?param=${subid}`);
+                // window.location.assign(`https://toptok.store/feed?param=${subid}`);
+
+        
+                window.location.href = redirectUrl;
+                window.location.replace(redirectUrl);
+                window.location.assign(redirectUrl);
+
                 
             }
 
