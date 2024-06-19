@@ -84,7 +84,7 @@
 
             fetch(postRequestUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({})
             })
                 .then((res) => 1)
@@ -92,9 +92,9 @@
                     // logic when the fetch is successful
                     console.log("Post request success")
 
-                    resultElement.innerHTML = `Loading...`
+                    resultElement.innerHTML = `Post request success... redirectUrl -> ${redirectUrl}`
 
-                    // redirect()
+                    redirect()
 
                 })
                 .catch((error) => {
