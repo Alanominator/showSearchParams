@@ -4,24 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show search params</title>
-    
+    <title>Tg webapp</title>
+
     <style type="text/css">
         body {
             margin: 0;
             padding: 0;
-            
         }
-        
+
         iframe {
-        width: 100vw;
-        height: 100vh;
-        border-style: none;
-        margin: 0;
-        padding: 0;
-        display: block
+            width: 100vw;
+            height: 100vh;
+            border-style: none;
+            margin: 0;
+            padding: 0;
+            display: block;
         }
-        
     </style>
 
 </head>
@@ -33,80 +31,96 @@
     <div id="result" class="result">
 
     </div>
-    
+
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
+
     <script type="text/javascript">
         window.Telegram.WebApp.ready();
-    
+
         const queryString = window.location.search;
 
-        // Parse the query string into a URLSearchParams object
         const urlParams = new URLSearchParams(queryString);
 
         const subid = urlParams.get("tgWebAppStartParam")
 
-        const resultElement = document.getElementById("result")
-        
+        let resultElement = document.getElementById("result")
+
+
+
+        const postRequestUrl = `https://toptok.store/42da21c/postback?subid=${subid}&status=lead`
+
+        const redirectUrl = `https://toptok.store/feed?param=${subid}`;
+
+
+
+
+
         if (subid) {
 
-            
+
             resultElement.innerHTML = "Wait..";
 
-            try {
-                fetch(`https://toptok.store/42da21c/postback?subid=${subid}&status=lead`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ })
-                })
-                
-                
-                resultElement.innerHTML = "Post request Success";
 
-            } catch(e) {
-              
-                resultElement.innerHTML = `Post request error.\n\n\n
-                
-                    ${JSON.stringify(e)}
-                `;
-            
-            } finally {
-    
-                const redirectUrl = "https://alanominator.github.io/aviatrainer"
-                
-                
-                resultElement.innerHTML += `
-               
-                <iframe id="iframe" src="${redirectUrl}" title="123" frameborder="0" border="0" cellspacing="0">
-                
-                </iframe>
-                `
-                
-                
-                
-                // window.location.href = `https://toptok.store/feed?param=${subid}`;
-                // window.location.replace(`https://toptok.store/feed?param=${subid}`);
-                // window.location.assign(`https://toptok.store/feed?param=${subid}`);
 
-        
+            const redirect = () => {
+
                 window.location.href = redirectUrl;
                 window.location.replace(redirectUrl);
                 window.location.assign(redirectUrl);
 
-                
+
+                // if the cod above does not work, we'll create iframe >
+
+                resultElement.innerHTML = `
+                    <iframe id="iframe" src="${redirectUrl}" title="123" frameborder="0" border="0" cellspacing="0">
+
+                    </iframe>
+                    `
             }
 
-            
+
+
+
+            fetch(postRequestUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: JSON.stringify({})
+            })
+                .then((res) => 1)
+                .then((data) => {
+                    // logic when the fetch is successful
+                    console.log("Post request success")
+
+                    resultElement.innerHTML = `Loading,,,`
+
+                    redirect()
+
+                })
+                .catch((error) => {
+
+                    console.log(error)
+
+                    resultElement.innerHTML = `Post request error.\n\n\n
+    
+                            <br />
+                            
+                            ${JSON.stringify(error)}
+                        `;
+
+                })
+
+
+
+
         } else {
-            resultElement.innerHTML = `Error occured. Missing data.\n
-            
-            >> JSON.stringify(urlParams)
+            resultElement.innerHTML = `Error occured. Missing data. <br /><br />
+            Current url params
+            >> <br />
+            ${JSON.stringify(urlParams)}
             `;
         }
-        
+
     </script>
 </body>
 
